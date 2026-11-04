@@ -1,6 +1,6 @@
 name: refresh profile
 
-# Rebuilds the SVGs with fresh commit counts and the contribution heatmap.
+# Rebuilds the SVGs with fresh commit counts.
 # Runs every day, on every push to main, and by hand from the Actions tab.
 on:
   schedule:

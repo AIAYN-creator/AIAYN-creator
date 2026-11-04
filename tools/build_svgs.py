@@ -4,14 +4,13 @@
     python tools/build_svgs.py --refresh  # ask GitHub (gh CLI) for fresh numbers first
 
 What it draws: the paper header, the periodic-table tiles (mass = commits), the
-legend, the contribution heatmap (Figure 1) and the findings cards. The README
+legend and the findings cards. The README
 picks light or dark with <picture> and prefers-color-scheme. Never edit the
 SVGs by hand: change this file and run it.
 """
 
 from __future__ import annotations
 
-import datetime as dt
 import json
 import re
 import subprocess
@@ -52,12 +51,6 @@ FAMILIES = {
 PAGE = {
     "light": {"bg": "#ffffff", "ink": "#1f2328", "soft": "#59636e", "rule": "#d1d9e0", "card": "#f6f8fa"},
     "dark": {"bg": "#0d1117", "ink": "#f0f6fc", "soft": "#9198a1", "rule": "#3d444d", "card": "#151b23"},
-}
-
-# heatmap: empty day, then four levels (teal, like the lab family)
-HEAT = {
-    "light": ["#eff2f5", "#9FE1CB", "#5DCAA5", "#1D9E75", "#085041"],
-    "dark": ["#151b23", "#0F4A3B", "#0F6E56", "#1D9E75", "#5DCAA5"],
 }
 
 # symbol, display name, repo, family, one-line tag
@@ -116,18 +109,8 @@ def commit_count(repo: str) -> int | None:
     return int(m.group(1)) if m else 1
 
 
-def contributions() -> list[list[int | str]] | None:
-    q = ("query{user(login:\"%s\"){contributionsCollection{contributionCalendar"
-         "{weeks{contributionDays{date contributionCount}}}}}}" % OWNER)
-    out = gh("api", "graphql", "-f", f"query={q}")
-    if out is None:
-        return None
-    weeks = json.loads(out)["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
-    return [[d["date"], d["contributionCount"]] for w in weeks for d in w["contributionDays"]]
-
-
 def load() -> dict:
-    return json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {"commits": {}, "days": []}
+    return json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {"commits": {}}
 
 
 def refresh(data: dict) -> dict:
@@ -137,10 +120,6 @@ def refresh(data: dict) -> dict:
         if n is not None:
             data["commits"][repo] = n
         print(f"{repo:<26} {data['commits'].get(repo, '?')}")
-    days = contributions()
-    if days:
-        data["days"] = days
-        print(f"contributions: {sum(c for _, c in days)} in {len(days)} days")
     DATA.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     return data
 
@@ -221,43 +200,6 @@ def legend(mode: str) -> str:
     return svg(w, h, "".join(parts), "Legend: three families of projects; the number on the right is the commit count")
 
 
-def heatmap(days: list, mode: str) -> str:
-    p, ramp = PAGE[mode], HEAT[mode]
-    cell, gap, left, top = 13, 3, 34, 24
-    step = cell + gap
-    counts = sorted(c for _, c in days if c)
-    # level cut-offs from the non-zero days, so one huge day doesn't wash out the rest
-    cuts = [counts[int(len(counts) * q)] for q in (0.25, 0.5, 0.75)] if counts else [1, 2, 3]
-
-    def level(c: int) -> int:
-        return 0 if c == 0 else 1 + sum(c > k for k in cuts)
-
-    parts, last_month = [], None
-    first = dt.date.fromisoformat(days[0][0]) if days else dt.date.today()
-    offset = (first.weekday() + 1) % 7  # GitHub weeks start on Sunday
-    weeks = (len(days) + offset + 6) // 7
-    w = left + weeks * step
-    for i, (date, c) in enumerate(days):
-        d = dt.date.fromisoformat(date)
-        col, row = (i + offset) // 7, (i + offset) % 7
-        x, y = left + col * step, top + row * step
-        parts.append(f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="2.5" fill="{ramp[level(c)]}">'
-                     f"<title>{date}: {c}</title></rect>")
-        if row == 0 and d.month != last_month and d.day <= 7 and x < w - 28:
-            parts.append(f'<text x="{x}" y="{top-8}" font-family="{SANS}" font-size="11" fill="{p["soft"]}">{d:%b}</text>')
-            last_month = d.month
-    for row, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
-        parts.append(f'<text x="0" y="{top + row*step + 10}" font-family="{SANS}" font-size="11" fill="{p["soft"]}">{name}</text>')
-    h = top + 7 * step + 24
-    lx = w - 5 * step - 70
-    parts.append(f'<text x="{lx-8}" y="{h-6}" text-anchor="end" font-family="{SANS}" font-size="11" fill="{p["soft"]}">Less</text>')
-    for k, colour in enumerate(ramp):
-        parts.append(f'<rect x="{lx + k*step}" y="{h-17}" width="{cell}" height="{cell}" rx="2.5" fill="{colour}"/>')
-    parts.append(f'<text x="{lx + 5*step + 4}" y="{h-6}" font-family="{SANS}" font-size="11" fill="{p["soft"]}">More</text>')
-    total = sum(c for _, c in days)
-    return svg(w, h, "".join(parts), f"Contribution heatmap: {total} contributions in the last year")
-
-
 def finding(card: tuple, mode: str) -> str:
     _id, fam, label, number, claim = card
     p = PAGE[mode]
@@ -285,7 +227,6 @@ def main() -> None:
         files = {
             f"header-{mode}.svg": header(mode),
             f"legend-{mode}.svg": legend(mode),
-            f"heatmap-{mode}.svg": heatmap(data["days"], mode),
         }
         for i, el in enumerate(ELEMENTS, start=1):
             files[f"tiles/{el[0].lower()}-{mode}.svg"] = tile(i, el, data["commits"].get(el[2], "?"), mode)
