@@ -38,3 +38,10 @@ Each project is an element, grouped by family. Click one to open it.
   <img src="assets/legend-light.svg" width="100%" alt="Legend: teal is chemistry and the lab, purple is human-in-the-loop AI, coral is side quests. Top left of each tile is the atomic number, top right the number of commits.">
 </picture>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-dark.svg">
+  <img src="assets/heatmap-light.svg" width="100%" alt="Heatmap of contributions over the last year">
+</picture>
+
+<p align="center"><sub><i>Figure 1.</i> Contributions over the last twelve months, one square per day. Rebuilt every day from the GitHub API.</sub></p>
+
