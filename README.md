@@ -45,3 +45,18 @@ Each project is an element, grouped by family. Click one to open it.
 
 <p align="center"><sub><i>Figure 1.</i> Contributions over the last twelve months, one square per day. Rebuilt every day from the GitHub API.</sub></p>
 
+## 2. Selected findings
+
+One number from each project, with the claim it supports. Every card links to the evidence.
+
+<p align="center">
+<a href="https://github.com/AIAYN-creator/Computational-Chemistry/tree/main/sessions/02-hartree-fock"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/rhf-dark.svg"><img src="assets/findings/rhf-light.svg" width="49%" alt="Computational Chemistry · Hartree-Fock: 7.6 eV. Restricted Hartree-Fock cannot break a bond: the error left at dissociation of H₂."></picture></a>
+<a href="https://github.com/AIAYN-creator/Lab-Harness"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/labharness-dark.svg"><img src="assets/findings/labharness-light.svg" width="49%" alt="LabHarness · data to paper: 1.3 s. From a CSV to a figure in the PDF. Change a measurement and the fit and the text follow."></picture></a>
+<a href="https://github.com/AIAYN-creator/monkey-with-a-scalpel"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/monkey-dark.svg"><img src="assets/findings/monkey-light.svg" width="49%" alt="Monkey with a Scalpel · simulated gantry: 88 mm → 9 µm. The agent corrects its own positioning error in 26 iterations. Ideal simulation; hardware is next."></picture></a>
+<a href="https://github.com/AIAYN-creator/Ego-Audit"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/egoaudit-dark.svg"><img src="assets/findings/egoaudit-light.svg" width="49%" alt="Ego Audit · SPY, 2022–2024: +14.1 % → +5.3 %. A 20-day moving average after fees and slippage. Buy-and-hold made +19.2 %."></picture></a>
+<a href="https://github.com/AIAYN-creator/Bib-Expres"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/bibexpres-dark.svg"><img src="assets/findings/bibexpres-light.svg" width="49%" alt="Bib-Exprés · literature search: 200 papers / 22 s. One DOI in, generations of references and citations out, ranked by relevance."></picture></a>
+<a href="https://github.com/AIAYN-creator/Histos"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/histos-dark.svg"><img src="assets/findings/histos-light.svg" width="49%" alt="Histos · human-AI task board: v3. Planned and reviewed card by card in a Histos vault: the tool built with itself."></picture></a>
+<a href="https://github.com/AIAYN-creator/Apuntes.md"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/apuntes-dark.svg"><img src="assets/findings/apuntes-light.svg" width="49%" alt="Apuntes.md · handwritten notes: 0 words invented. Scanned biochemistry notes to Markdown, checked word by word against the page."></picture></a>
+<a href="https://github.com/AIAYN-creator/lumen-tv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/lumen-dark.svg"><img src="assets/findings/lumen-light.svg" width="49%" alt="Lumen TV · one Sunday: 2009. A TV with nothing smart in it, turned into a home dashboard with a phone remote."></picture></a>
+</p>
+
