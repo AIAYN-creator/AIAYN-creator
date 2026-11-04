@@ -60,3 +60,12 @@ One number from each project, with the claim it supports. Every card links to th
 <a href="https://github.com/AIAYN-creator/lumen-tv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/findings/lumen-dark.svg"><img src="assets/findings/lumen-light.svg" width="49%" alt="Lumen TV · one Sunday: 2009. A TV with nothing smart in it, turned into a home dashboard with a phone remote."></picture></a>
 </p>
 
+## 3. Methods
+
+Python, TypeScript, Svelte, C++, Kotlin, Java, LaTeX, Bash, and Gaussian for the quantum chemistry.
+
+The language is rarely the hard part any more: an agent can write in almost any of them. The scarce part is judgement. Choosing the question, knowing what a right answer looks like before it arrives, building the check that catches a wrong one, and deciding what ships. That part stays human.
+
+---
+
+<sub>Received 2026 · Revised continuously · Accepted: pending peer review</sub>
