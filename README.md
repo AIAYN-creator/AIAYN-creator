@@ -57,7 +57,13 @@ One number from each project, with the claim it supports. Every card links to th
 
 Python, TypeScript, Svelte, C++, Kotlin, Java, LaTeX, Bash, and Gaussian for the quantum chemistry.
 
-The language is rarely the hard part any more: an agent can write in almost any of them. The scarce part is judgement. Choosing the question, knowing what a right answer looks like before it arrives, building the check that catches a wrong one, and deciding what ships. That part stays human.
+The language is rarely the hard part any more: an agent can write in almost any of them [1]. The scarce part is judgement. Choosing the question, knowing what a right answer looks like before it arrives, building the check that catches a wrong one, and deciding what ships. That part stays human.
+
+## References
+
+[1] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, I. Polosukhin. *Attention Is All You Need.* NeurIPS 2017. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
+
+<sub>The handle comes from here. A title that sounded like a joke in 2017 turned out to be a forecast.</sub>
 
 ---
 
