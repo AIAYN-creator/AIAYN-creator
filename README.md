@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-  <img src="assets/header-light.svg" width="100%" alt="Curiosity Is All You Need, by AIAYN-creator. Chemistry undergraduate who builds tools for the lab.">
+  <img src="assets/header-light.svg" width="100%" alt="Curiosity Is All You Need, by AIAYN-creator. Chemistry and math undergraduate who builds tools for the lab.">
 </picture>
 
 <p align="center"><b>Abstract</b></p>
