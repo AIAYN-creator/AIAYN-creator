@@ -73,20 +73,24 @@ ELEMENTS = [
 FINDINGS = [
     ("rhf", "lab", "Computational Chemistry · Hartree-Fock", "7.6 eV",
      "Restricted Hartree-Fock cannot break a bond: the error left at dissociation of H₂."),
+    ("onsager", "lab", "Computational Chemistry · solvent effects", "R² 0.98",
+     "Solvent effects only look saturated against ε. Plotted against the Onsager function, the same points fall on a line."),
     ("labharness", "lab", "LabHarness · data to paper", "1.3 s",
      "From a CSV to a figure in the PDF. Change a measurement and the fit and the text follow."),
-    ("vernier", "agents", "Vernier · simulated gantry", "88 mm → 9 µm",
-     "The agent corrects its own positioning error in 26 iterations. Ideal simulation; hardware is next."),
+    ("bibexpres", "lab", "Bib-Exprés · literature search", "9.9 % → 24 %",
+     "Share of three published reviews' references found in the top 200, v2 to v3. Every result still explains its score."),
+    ("vernier", "agents", "Vernier · safety firmware", "21 / 21",
+     "Faults injected one at a time into the motion core, step queue and pin map. The tests must catch every one, in CI."),
+    ("histos", "agents", "Histos · scale tests", "18 s → < 1 s",
+     "Status with 2,000 closed cards in five vaults, caught before release. Estimates come from your history, never a guess."),
+    ("apuntes", "lab", "Apuntes.md · handwritten notes", "0 words invented",
+     "Eleven pages of biochemistry notes to Markdown, checked word by word against the page. Doubts are marked, not filled."),
     ("egoaudit", "agents", "Ego Audit · SPY, 2022–2024", "+14.1 % → +5.3 %",
      "A 20-day moving average after fees and slippage. Buy-and-hold made +19.2 %."),
-    ("bibexpres", "lab", "Bib-Exprés · literature search", "200 papers / 22 s",
-     "One DOI in, generations of references and citations out, ranked by relevance."),
-    ("histos", "agents", "Histos · human-AI task board", "v3",
-     "Planned and reviewed card by card in a Histos vault: the tool built with itself."),
-    ("apuntes", "lab", "Apuntes.md · handwritten notes", "0 words invented",
-     "Scanned biochemistry notes to Markdown, checked word by word against the page."),
     ("lumen", "side", "Lumen TV · one Sunday", "2009",
      "A TV with nothing smart in it, turned into a home dashboard with a phone remote."),
+    ("mifilmo", "side", "Mi Filmo · film diary", "0 servers",
+     "Static HTML and your own GitHub repository. Every film you log is a commit, with its date and its message."),
 ]
 
 
@@ -205,7 +209,9 @@ def finding(card: tuple, mode: str) -> str:
     p = PAGE[mode]
     _fill, stroke, _ink, soft = FAMILIES[fam][mode]
     w, h = 440, 176
-    lines = wrap(claim, 52)[:3]
+    lines = wrap(claim, 52)
+    if len(lines) > 3:
+        raise SystemExit(f"finding '{_id}': the claim needs {len(lines)} lines, the card holds 3")
     body = (
         f'<rect x="0.5" y="0.5" width="{w-1}" height="{h-1}" rx="6" fill="{p["card"]}" stroke="{p["rule"]}"/>'
         f'<rect x="0" y="18" width="4" height="{h-36}" fill="{stroke}"/>'
